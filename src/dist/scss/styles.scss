@@ -16,11 +16,13 @@ html, body {
     height: 100%;
 }
 .outer {
-    padding: 30px;
     display: flex;
     align-items: stretch;
     flex-direction: column;
     justify-content: center;
+    max-width: $width;
+    margin: 0 auto;
+    overflow: hidden;
 }
 header, footer {
     background: #eaeee7;
@@ -47,4 +49,24 @@ footer {
 
 .content {
     margin: 20px 0;
+}
+
+.carousel {
+    display: block;
+    height: 250px;
+    width: 6400px;
+    overflow: hidden;
+
+    .card-outer {
+        display: inline-block;
+        img {
+            object-fit: cover
+        }
+        &:first-child {
+            margin-left: 0 !important;
+        }
+        &:last-child {
+            margin-right: 0 !important;
+        }
+    }
 }
