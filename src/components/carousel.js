@@ -4,6 +4,7 @@ import {COUNT, MAX_CARD_WIDTH, ACTIVE_PAGE, MARGINH} from './../redux/types';
 import axios from 'axios';
 import {Card} from './cards';
 
+
 export const Carousel = (props) => {
     const dispatch = useDispatch()
     const [data, setData] = useState([]);

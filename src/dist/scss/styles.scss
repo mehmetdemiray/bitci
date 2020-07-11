@@ -13,8 +13,9 @@ html, body {
 #root,
 .page,
 .outer {
-    height: 100%;
+    height: auto;
 }
+
 .outer {
     display: flex;
     align-items: stretch;
@@ -27,6 +28,7 @@ html, body {
 header, footer {
     background: #eaeee7;
     padding: 25px;
+    position: relative;
 }
 
 footer {
@@ -66,7 +68,7 @@ footer {
     width: 6400px;
     overflow: hidden;
     transition: all 1s ease-in-out;
-
+    position: relative;
 
     .card-outer {
         display: inline-block;
@@ -78,6 +80,36 @@ footer {
         }
         &:last-child {
             margin-right: 0 !important;
+        }
+    }
+}
+
+.mobile-buttons {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    .arrow {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: rgba(255,255,255,.4);
+        text-align: center;
+        border-radius: 50px;
+        padding-top: 19px;
+        cursor: pointer;
+        transition: all .3s ease-in-out;
+        &:hover {
+            background: rgba(255,255,255,.5);
+        }
+        &.left-arrow {
+            left: -30px;
+            svg {
+                transform: rotate(180deg);
+            }
+        }
+        &.right-arrow {
+            right: -30px;
         }
     }
 }
