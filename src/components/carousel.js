@@ -1,44 +1,44 @@
 ﻿import React, {useState, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {COUNT, MAX_CARD_WIDTH, ACTIVE_PAGE, MARGINH} from './../redux/types'; 
 import axios from 'axios';
 import {Card} from './cards';
 
 export const Carousel = (props) => {
+    const dispatch = useDispatch()
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [count, setCount] = useState(0);
-    const [inPage, setInPage] = useState(4);
-    const [activePage, setActivePage] = useState(0);
-    const [margin, setMargin] = useState(50);
-    const [marginH, setMarginH] = useState(0)
-    const [maxCardWidth, setMaxCardWidth] = useState();
+    const settings = useSelector(state => state.SETTINGS)
 
     useEffect(() => {
       const fetchData = async () => {
         const result = await axios('https://pixabay.com/api/?key=9656065-a4094594c34f9ac14c7fc4c39&q=beautiful+landscape&image_type=photo',);
         setData(result.data.hits);
-        setCount(result.data.hits.length);
+        dispatch({type: COUNT, payload: result.data.hits.length});
         setLoading(false);
       };
 
       fetchData();
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
-      setMaxCardWidth((props.maxWidth-((inPage-1)*margin))/inPage)
-    }, [props.maxWidth, inPage, margin])
+      dispatch({type: MAX_CARD_WIDTH, payload: (props.maxWidth-((settings.inPage-1)*settings.margin))/settings.inPage})
+    }, [props.maxWidth, settings.inPage, settings.margin, dispatch])
 
     useEffect(() => {
-      setActivePage(props.direction)
-      setMarginH(props.direction*(maxCardWidth + margin))
-    }, [props.direction])
+      dispatch({type: ACTIVE_PAGE, payload: props.direction})
+      dispatch({type: MARGINH, payload: props.direction*(settings.maxCardWidth + settings.margin)})
+    }, [props.direction, dispatch, settings.margin, settings.maxCardWidth])
 
 
     return (
       loading ? null:
-        <div className="carousel" style={{height: `${maxCardWidth}px`, marginLeft: `${marginH}px`, width: `${(count*(maxCardWidth + margin))-margin}px`}}>
-            {data.map((item) =>
-              <Card key={item.id} data={item} margin={margin} cardWidth={maxCardWidth} />
-            )}
-        </div>
+        <>
+          <div className="carousel" style={{height: `${settings.maxCardWidth}px`, marginLeft: `${settings.marginH}px`, width: `${(settings.count*(settings.maxCardWidth + settings.margin))-settings.margin}px`}}>
+              {data.map((item) =>
+                <Card key={item.id} data={item} margin={settings.margin} cardWidth={settings.maxCardWidth} />
+              )}
+          </div>
+        </>
     )
 }

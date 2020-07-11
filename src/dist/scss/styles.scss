@@ -51,11 +51,22 @@ footer {
     margin: 20px 0;
 }
 
+.settings {
+    background: #ffffff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 2px solid #efefef;
+    padding: 20px;
+}
+
+
 .carousel {
     display: block;
     height: 250px;
     width: 6400px;
     overflow: hidden;
+    transition: all 1s ease-in-out;
+
 
     .card-outer {
         display: inline-block;
