@@ -1,6 +1,7 @@
-﻿import { COUNT, INPAGE, ACTIVE_PAGE, MARGIN, MARGINH, MAX_CARD_WIDTH, DEVICE_TYPE, DIRECTION} from './../types';
+﻿import { COUNT, INPAGE, ACTIVE_PAGE, MARGIN, MARGINH, MAX_CARD_WIDTH, DEVICE_TYPE, DIRECTION, SEARCH, LOADING} from './../types';
 
 const initialState = {
+    searchText: "beautiful landscape",
     count: 0,
     inPage: 4,
     activePage: 0,
@@ -8,7 +9,8 @@ const initialState = {
     marginH: 0,
     maxCardWidth: 0,
     deviceType: "desktop",
-    direction: 0
+    direction: 0,
+    loading: false
 };
 
 export default function(state= initialState, action) {
@@ -29,6 +31,10 @@ export default function(state= initialState, action) {
         return { ...state, deviceType:action.payload };
     case DIRECTION:
       return { ...state, direction:action.payload };
+    case SEARCH:
+      return { ...state, searchText:action.payload };
+    case LOADING:
+      return { ...state, loading:action.payload };
     default:
   }
   return state;

@@ -1,6 +1,6 @@
 ﻿import React, {useEffect, useRef, useState} from 'react';
 import {useWindowWidth} from '@react-hook/window-size/throttled'
-import {INPAGE, DEVICE_TYPE, MARGIN, DIRECTION} from './../redux/types'
+import {INPAGE, DEVICE_TYPE, MARGIN, DIRECTION, SEARCH} from './../redux/types'
 import {Carousel} from './carousel';
 import { useDispatch, useSelector } from 'react-redux';
 import {ReactComponent as Arrow} from './../dist/img/arrow.svg';
@@ -11,6 +11,7 @@ export const Layout = () => {
     const dispatch = useDispatch()
     const onlyWidth = useWindowWidth()
     const [maxWidth, setMaxWidth] = useState()
+    const [text, setText] = useState("")
 
     useEffect(() => {
         setMaxWidth(ref.current ? ref.current.offsetWidth : 0);
@@ -24,7 +25,8 @@ export const Layout = () => {
             dispatch({type: INPAGE, payload: 5})
           }
         }
-    }, [ref, onlyWidth, dispatch]);
+        setText(settings.searchText)
+    }, [ref, onlyWidth, dispatch, settings.searchText]);
 
     return (
         <div ref={ref} className="outer">
@@ -33,6 +35,17 @@ export const Layout = () => {
             </header>
             <div className="settings">
             <div className="row">
+                <div className="column">
+                    <label htmlFor="inpage">Kelime</label>
+                    <div className="row">
+                        <div className="column">
+                            <div className="column"><input onChange={(e) => setText(e.target.value)} type="text" id="string" defaultValue={text}/></div>
+                        </div>
+                        <div className="column">
+                            <button onClick={() => dispatch({type: SEARCH, payload: text})} className="button">Ara</button>
+                        </div>
+                    </div>
+                </div>
                 <div className="column">
                     <label htmlFor="inpage">Sayfada Gösterilecek Sayı</label>
                     <input disabled={settings.deviceType === "mobile" ? true: false} onChange={(e) => dispatch({type: INPAGE, payload: e.target.value})} type="number" id="inpage" value={settings.inPage}/>

@@ -71,7 +71,18 @@ footer {
     position: relative;
 
     .card-outer {
+        position: relative;
         display: inline-block;
+        span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,.4);
+            padding: 5px;
+            border-radius: 10px;
+            color: #ffffff;
+        }
         img {
             object-fit: cover
         }

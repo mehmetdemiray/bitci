@@ -6,3 +6,5 @@ export const MARGINH = "MARGINH";
 export const MAX_CARD_WIDTH = "MAX_CARD_WIDTH";
 export const DEVICE_TYPE = "DEVICE_TYPE";
 export const DIRECTION = "DIRECTION";
+export const SEARCH = "SEARCH";
+export const LOADING = "LOADING";
